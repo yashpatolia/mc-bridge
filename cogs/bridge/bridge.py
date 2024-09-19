@@ -4,7 +4,7 @@ import re
 from discord import SyncWebhook
 from discord.ext import commands
 from javascript import On
-from config import WEBHOOK_URL, CHANNEL_ID
+from config import WEBHOOK_URL, CHANNEL_ID, MESSAGE_CHOICE
 
 
 class Bridge(commands.Cog):
@@ -22,8 +22,19 @@ class Bridge(commands.Cog):
                     print(f'[MC] {username} {message}')
                     match = re.search(r"^(?:\[(?P<rank>.+?)\])?\s?(?P<player>.+?)\s?(?:\[(?P<guild_rank>.+?)\])?: (?P<message>.*)$", message)
                     username = match.group('player')
-                    webhook.send(f"{match.group('message')}", username=f"{username}",
-                                 avatar_url=f"https://mc-heads.net/avatar/{match.group('player')}")
+
+                    if MESSAGE_CHOICE == "webhook":
+                        webhook.send(f"{match.group('message')}", username=f"{username}",
+                                    avatar_url=f"https://mc-heads.net/avatar/{match.group('player')}")
+                        
+                    elif MESSAGE_CHOICE == "embed":
+                        embed = discord.Embed(
+                            colour=discord.Colour.blue(), 
+                            description=f"{match.group('message')}",
+                            timestamp=discord.utils.utcnow())
+                        embed.set_author(name=f"{username}", icon_url=f"https://mc-heads.net/avatar/{match.group('player')}")
+                        embed.footer(text=f"{match.group('guild_rank')}")
+                        webhook.send(embed=embed)
 
                 # Member Joined / Left
                 elif message.split(' ')[-1] in ["joined.", "left."]:
