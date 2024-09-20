@@ -41,8 +41,7 @@ class Bridge(commands.Cog):
                     colour = discord.Colour.green() if message.split(' ')[-1] == "joined." else discord.Colour.red()
                     embed = discord.Embed(colour=colour, description=f"{message}")
                     username = message.split(' ')[0]
-                    webhook.send(embed=embed, username=username,
-                                 avatar_url=f"https://mc-heads.net/avatar/{message.split(' ')[0]}")
+                    webhook.send(embed=embed)
 
     # Send messages to Minecraft
     @commands.Cog.listener()
