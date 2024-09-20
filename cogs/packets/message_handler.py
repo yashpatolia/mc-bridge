@@ -84,7 +84,7 @@ class MessageHandler(commands.Cog):
             # LOG Guild Online / List
             if "Total Members:" in message and self.client.save_guild_list is True:
                 self.client.save_guild_list = False
-            if "Guild Name: SBNOfficial" in message or self.client.save_guild_list is True:
+            if "Guild Name: Ancient Rose" in message or self.client.save_guild_list is True:
                 self.client.save_guild_list = True
                 self.client.guild_list.append(message)
 

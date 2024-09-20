@@ -36,18 +36,18 @@ class GuildCommands(commands.GroupCog, name="guild"):
         await interaction.edit_original_response(embed=embed)
         await self.client.log(interaction, "g online")
 
-    @app_commands.command(name="motd-preview", description="Preview guild MOTD!")
-    async def motd_preview(self, interaction):
-        await interaction.response.defer()
-        self.client.bot.chat("/g motd preview")
-        await asyncio.sleep(0.75)
+    # @app_commands.command(name="motd-preview", description="Preview guild MOTD!")
+    # async def motd_preview(self, interaction):
+    #     await interaction.response.defer()
+    #     self.client.bot.chat("/g motd preview")
+    #     await asyncio.sleep(0.75)
 
-        motd_preview_string = "".join(f"{i.lstrip()}\n" for i in self.client.guild_motd_preview)
-        embed = discord.Embed(colour=discord.Colour.orange(),
-                              description=f"```{motd_preview_string}```")
-        self.client.guild_motd_preview.clear()
-        await interaction.edit_original_response(embed=embed)
-        await self.client.log(interaction, "g motd preview")
+    #     motd_preview_string = "".join(f"{i.lstrip()}\n" for i in self.client.guild_motd_preview)
+    #     embed = discord.Embed(colour=discord.Colour.orange(),
+    #                           description=f"```{motd_preview_string}```")
+    #     self.client.guild_motd_preview.clear()
+    #     await interaction.edit_original_response(embed=embed)
+    #     await self.client.log(interaction, "g motd preview")
 
     @app_commands.command(name="invite", description="Invite member!")
     @app_commands.describe(ign="IGN")
