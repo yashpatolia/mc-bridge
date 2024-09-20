@@ -34,8 +34,7 @@ class Bridge(commands.Cog):
                             timestamp=discord.utils.utcnow())
                         embed.set_author(name=f"{username}", icon_url=f"https://mc-heads.net/avatar/{match.group('player')}")
                         embed.set_footer(text=f"{match.group('guild_rank')}")
-                        webhook.send(embed=embed, username=username,
-                                 avatar_url=f"https://mc-heads.net/avatar/{username}")
+                        webhook.send(embed=embed)
 
                 # Member Joined / Left
                 elif message.split(' ')[-1] in ["joined.", "left."]:
