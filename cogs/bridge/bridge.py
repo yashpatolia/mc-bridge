@@ -33,7 +33,7 @@ class Bridge(commands.Cog):
                             description=f"{match.group('message')}",
                             timestamp=discord.utils.utcnow())
                         embed.set_author(name=f"{username}", icon_url=f"https://mc-heads.net/avatar/{match.group('player')}")
-                        embed.footer(text=f"{match.group('guild_rank')}")
+                        embed.set_footer(text=f"{match.group('guild_rank')}")
                         webhook.send(embed=embed)
 
                 # Member Joined / Left
