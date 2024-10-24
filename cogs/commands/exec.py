@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-from config import OWNER_ID, STAFF_ROLE
+from config import OWNER_ID, EXEC_PERMS
 
 
 class Exec(commands.Cog):
@@ -12,15 +12,14 @@ class Exec(commands.Cog):
     @app_commands.describe(command="Command to run")
     async def exec(self, interaction: discord.Interaction, command: str):
         await interaction.response.defer()
-        role = discord.utils.get(interaction.guild.roles, id=STAFF_ROLE)
-        if role not in interaction.user.roles or interaction.user.id != OWNER_ID:
-            embed = discord.Embed(colour=discord.Colour.red(), description="You do not have sufficient permissions!")
+        if interaction.user.id not in EXEC_PERMS or interaction.user.id != OWNER_ID:
+            embed = discord.Embed(colour=discord.Colour.red(), description="Not sufficient permissions!")
             await interaction.edit_original_response(embed=embed)
             return
 
         self.client.bot.chat(f"/{command}")
         await self.client.log(interaction, command)
-        embed = discord.Embed(colour=discord.Colour.green(), description=f"Command Executed: **/{command}**")
+        embed = discord.Embed(colour=discord.Colour.green(), description=f"**Command Executed:** /{command}")
         await interaction.edit_original_response(embed=embed)
 
 
