@@ -57,7 +57,8 @@ class Bridge(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author.bot:
+        if message.author.bot or len(message.content) > 250:
+            logging.error(f"Message Length: {len(message.content)}")
             return
 
         if len(message.content) > 0 and (str(message.channel.id) in [str(BRIDGE_CHANNEL_ID), str(OFFICER_CHANNEL_ID)]):  # Messages
@@ -65,6 +66,7 @@ class Bridge(commands.Cog):
             logging.info(f'[D] {message.author.display_name} {message.content}')
 
             message.content = emoji.demojize(discord.utils.remove_markdown(message.clean_content))
+            message.content = re.sub(r'<[^:]*(:[^:]+:)\d+>', r'\1', message.content)
 
             if message.type == discord.MessageType.reply:  # Replies
                 reply_message = await message.channel.fetch_message(message.reference.message_id)
