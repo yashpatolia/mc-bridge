@@ -1,4 +1,5 @@
 import discord
+import logging
 from discord.ext import commands
 from discord import app_commands
 from config import OWNER_ID, EXEC_PERMS
@@ -18,7 +19,7 @@ class Exec(commands.Cog):
             return
 
         self.client.bot.chat(f"/{command}")
-        await self.client.log(interaction, command)
+        logging.info(command)
         embed = discord.Embed(colour=discord.Colour.green(), description=f"**Command Executed:** /{command}")
         await interaction.edit_original_response(embed=embed)
 
