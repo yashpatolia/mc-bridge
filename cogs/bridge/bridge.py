@@ -34,7 +34,7 @@ class Bridge(commands.Cog):
                 try:
                     state = username
                     match = re.search(r"^(?:\[(?P<rank>.+?)\])?\s?(?P<player>.+?)\s?(?:\[(?P<guild_rank>.+?)\])?: (?P<message>[\s\S]*)$", message) #(?P<message>[\s\S]*) #(?P<message>.*)
-                    message = re.sub('@', '', match.group('message'))
+                    message = re.sub('@', '', match.group('message')).strip()
                     username = match.group("player")
                     guild_rank = match.group("guild_rank")
 
